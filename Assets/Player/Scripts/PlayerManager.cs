@@ -11,10 +11,13 @@ namespace Player
         [HideInInspector] public PlayerLocomotion locomotion;
         [HideInInspector] public PlayerAnimatorManager animatorManager;
         [HideInInspector] public PlayerAuraManager auraManager;
+        [HideInInspector] public PlayerShield playerShield;
         // [HideInInspector] public CameraManager cameraManager;
 
         [SerializeField] private bool isInteracting;
         [SerializeField] private bool isJumping;
+        [SerializeField] public bool isBlocking;
+        [SerializeField] public bool isTargeting;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Awake()
@@ -24,6 +27,8 @@ namespace Player
             animatorManager = GetComponent<PlayerAnimatorManager>();
             auraManager = GetComponent<PlayerAuraManager>();
 
+
+            TryGetComponent(out playerShield);
             auraManager?.PlayerAuraStart(animatorManager, inputHandler);
             // cameraManager = FindFirstObjectByType<CameraManager>();
         }
@@ -31,13 +36,14 @@ namespace Player
         // Update is called once per frame
         private void Update()
         {
+            playerShield?.HandleShield(ref isBlocking, inputHandler, animatorManager);
         }
 
         private void FixedUpdate()
         {
             auraManager.HandleAura(isInteracting);
             if (isInteracting) return;
-            locomotion.HandleMovement(inputHandler, animatorManager);
+            locomotion.HandleMovement(inputHandler, animatorManager, isTargeting);
         }
 
         private void LateUpdate()
@@ -45,8 +51,9 @@ namespace Player
             // cameraManager.HandleCameraMovement(inputHandler);
             isInteracting = animatorManager.anim.GetBool("isInteracting");
             isJumping = animatorManager.anim.GetBool("isJumping");
-            locomotion.HandleJumping(isJumping, inputHandler, animatorManager);
+            // animatorManager.anim.SetBool("Targeting", isTargeting);
             locomotion.HandleFallingAndLanding(isInteracting, isJumping, animatorManager);
+            locomotion.HandleJumping(isInteracting, isJumping, inputHandler, animatorManager);
         }
     }
 }

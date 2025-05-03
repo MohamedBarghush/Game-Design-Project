@@ -20,6 +20,7 @@ namespace Player
         void Update()
         {
             cameraSwitcher.HandleCameraSwitching(playerManager, ref isCameraLocked);
+            if (playerManager != null) playerManager.isTargeting = isCameraLocked;
         }
 
         void LateUpdate()

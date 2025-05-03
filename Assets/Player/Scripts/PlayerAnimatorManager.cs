@@ -29,14 +29,14 @@ namespace Player
             float snappedHorizontal;
             float snappedVertical;
 
-            #region Snapped Vertical
+            #region Snapped Horizontal
             if (horizontalMovement > 0f && horizontalMovement < 0.55f) snappedHorizontal = 0.5f;
             else if (horizontalMovement > 0.55f) snappedHorizontal = 1f;
             else if (horizontalMovement < 0f && horizontalMovement > -0.55f) snappedHorizontal = -0.5f;
             else if (horizontalMovement < -0.55f) snappedHorizontal = -1f;
             else snappedHorizontal = 0f;
             #endregion
-            #region Snapped Horizontal
+            #region Snapped Vertical
             if (verticalMovement > 0f && verticalMovement < 0.55f) snappedVertical = 0.5f;
             else if (verticalMovement > 0.55f) snappedVertical = 1f;
             else if (verticalMovement < 0f && verticalMovement > -0.55f) snappedVertical = -0.5f;
@@ -50,10 +50,16 @@ namespace Player
                 snappedVertical = 2f;
             }
 
-            snappedVertical = Mathf.Abs(snappedVertical);
+            // snappedVertical = horizontalMovement == 0 ? Mathf.Abs(snappedVertical) : snappedVertical;
 
             anim.SetFloat(horizontal, snappedHorizontal, 0.1f, Time.deltaTime);
             anim.SetFloat(vertical, snappedVertical, 0.1f, Time.deltaTime);
+        }
+
+        public void OverlayLayer(int layerIndex, float layerWeight, string animationName, bool animationStatus)
+        {
+            anim.SetLayerWeight(layerIndex, layerWeight);
+            anim.SetBool(animationName, animationStatus);
         }
     }
 }

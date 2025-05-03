@@ -1,4 +1,5 @@
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Player
@@ -10,7 +11,6 @@ namespace Player
 
         Vector3 moveDirection;
         Vector2 moveInput;
-        bool jumpInput;
         // float moveAmount;
         Transform cameraObject;
 
@@ -42,17 +42,21 @@ namespace Player
             cameraObject = Camera.main.transform;
         }
 
-        public void HandleMovement(InputHandler inputHandler, PlayerAnimatorManager animatorManager)
+        public void HandleMovement(InputHandler inputHandler, PlayerAnimatorManager animatorManager, bool isTargeting)
         {
             moveInput = inputHandler.moveInput;
-            isSprinting = inputHandler.sprintInput;
-            jumpInput = inputHandler.jumpInput;
+            isSprinting = inputHandler.sprintInput & !isTargeting;
             moveAmount = Mathf.Clamp01(Mathf.Abs(moveInput.x) + Mathf.Abs(moveInput.y));
-            GroundLocomtion();
-            HandleRotation();
+            GroundLocomtion(); 
+            if (!isTargeting || isCrouching) {
+                HandleRotation();
+            } else { 
+                TargetingHandleRotation();
+            }
             if (isSprinting && isCrouching) ResetCrouching(animatorManager); // if tried running while crouching, cancel crouch
             HandleCrouching(inputHandler, animatorManager);
-            animatorManager.UpdateAnimatorValues(0, moveAmount, isSprinting);
+            if (!isTargeting || isCrouching) animatorManager.UpdateAnimatorValues(0, moveAmount, isSprinting);
+            else animatorManager.UpdateAnimatorValues(moveInput.x, moveInput.y, isSprinting);
         }
 
         // Update is called once per frame
@@ -95,6 +99,20 @@ namespace Player
                 targetDirection = transform.forward;
 
             Quaternion targetRotation = Quaternion.LookRotation(targetDirection);
+            Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
+
+            transform.rotation = playerRotation;
+        }
+
+        private void TargetingHandleRotation() {
+            Vector3 cameraDirection = cameraObject.forward;
+            cameraDirection.y = 0f; // Keep only horizontal direction
+            cameraDirection.Normalize();
+
+            if (cameraDirection == Vector3.zero)
+                cameraDirection = transform.forward;
+
+            Quaternion targetRotation = Quaternion.LookRotation(cameraDirection);
             Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
             transform.rotation = playerRotation;
@@ -148,17 +166,19 @@ namespace Player
             }
         }
 
-        public void HandleJumping(bool isJumping, InputHandler inputHandler, PlayerAnimatorManager animatorManager)
+        public void HandleJumping(bool isInteracting, bool isJumping, InputHandler inputHandler, PlayerAnimatorManager animatorManager)
         {
             if (inputHandler.jumpInput)
             {
                 inputHandler.jumpInput = false;
-                if (!isGrounded || isJumping) return;
+                if (!isGrounded || isJumping || isInteracting) return;
 
                 rb.AddForce(transform.up * jumpVelocity, ForceMode.Impulse);
                 animatorManager.PlayTargetAnimation("Jump Running", false);
                 animatorManager.anim.SetBool("isJumping", true);
                 // animatorManager.anim.applyRootMotion = true;
+
+                isCrouching = false; // Cancel crouch when jumping
             }
         }
 

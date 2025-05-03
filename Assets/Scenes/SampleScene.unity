@@ -6879,6 +6879,7 @@ MonoBehaviour:
   jumpInput: 0
   auraInput: 0
   targetInput: 0
+  blockInput: 0
 --- !u!114 &1079840537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6975,8 +6976,11 @@ MonoBehaviour:
   locomotion: {fileID: 0}
   animatorManager: {fileID: 0}
   auraManager: {fileID: 0}
+  playerShield: {fileID: 0}
   isInteracting: 0
   isJumping: 0
+  isBlocking: 0
+  isTargeting: 0
 --- !u!114 &1079840541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7017,6 +7021,19 @@ MonoBehaviour:
   auraActive: 0
   auraVFX: {fileID: 687053570}
   canStartAura: 1
+--- !u!114 &1079840546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079840532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d1ee03f5affa384a850c4afe7a2e6de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blockInput: 0
 --- !u!1 &1081341041
 GameObject:
   m_ObjectHideFlags: 0
@@ -7738,6 +7755,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b24c1e21b6b61084c8266f1db0d51e3d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1079840544}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b24c1e21b6b61084c8266f1db0d51e3d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1079840546}
   m_SourcePrefab: {fileID: 100100000, guid: b24c1e21b6b61084c8266f1db0d51e3d, type: 3}
 --- !u!1 &1125296845
 GameObject:
@@ -11007,7 +11027,7 @@ Transform:
   m_GameObject: {fileID: 1719783031}
   serializedVersion: 2
   m_LocalRotation: {x: 0.070597, y: 0.40269122, z: -0.031169292, w: 0.91207695}
-  m_LocalPosition: {x: -1.6968058, y: 1.4154841, z: -2.0986679}
+  m_LocalPosition: {x: -1.4135832, y: 1.4154841, z: -2.4093137}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

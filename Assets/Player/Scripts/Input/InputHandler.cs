@@ -10,6 +10,7 @@ public class InputHandler : MonoBehaviour
     public bool jumpInput;
     public bool auraInput;
     public bool targetInput;
+    public bool blockInput;
 
     public void OnMove(InputValue value)
     {
@@ -44,6 +45,11 @@ public class InputHandler : MonoBehaviour
     public void OnTarget(InputValue value)
     {
         targetInput = value.isPressed;
+    }
+
+    public void OnBlock(InputValue value)
+    {
+        blockInput = value.isPressed;
     }
 
     public void Update()
