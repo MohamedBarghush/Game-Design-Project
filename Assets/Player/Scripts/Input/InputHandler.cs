@@ -11,6 +11,7 @@ public class InputHandler : MonoBehaviour
     public bool auraInput;
     public bool targetInput;
     public bool blockInput;
+    public bool rollInput;
 
     public void OnMove(InputValue value)
     {
@@ -50,6 +51,11 @@ public class InputHandler : MonoBehaviour
     public void OnBlock(InputValue value)
     {
         blockInput = value.isPressed;
+    }
+
+    public void OnRoll(InputValue value)
+    {
+        rollInput = value.isPressed;
     }
 
     public void Update()

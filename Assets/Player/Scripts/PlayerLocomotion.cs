@@ -25,7 +25,7 @@ namespace Player
 
         [Header("Movement Flags")]
         [SerializeField] private bool isSprinting = false;
-        [SerializeField] private bool isGrounded = false;
+        [SerializeField] public bool isGrounded = false;
         [SerializeField] private bool isCrouching = false;
 
         [Header("Movement Speeds")]
@@ -57,6 +57,7 @@ namespace Player
             HandleCrouching(inputHandler, animatorManager);
             if (!isTargeting || isCrouching) animatorManager.UpdateAnimatorValues(0, moveAmount, isSprinting);
             else animatorManager.UpdateAnimatorValues(moveInput.x, moveInput.y, isSprinting);
+            HandleRolling(inputHandler, animatorManager);
         }
 
         // Update is called once per frame
@@ -208,6 +209,26 @@ namespace Player
         {
             isCrouching = false;
             animatorManager.anim.SetTrigger("Crouch");
+        }
+
+        public void HandleRolling(InputHandler inputHandler, PlayerAnimatorManager animatorManager)
+        {
+            if (inputHandler.rollInput)
+            {
+                inputHandler.rollInput = false;
+                if (!isGrounded) return;
+
+                Vector3 targetDirection = cameraObject.forward * moveInput.y +
+                              cameraObject.right * moveInput.x;
+                targetDirection.Normalize();
+                targetDirection.y = 0f;
+                transform.rotation = Quaternion.LookRotation(targetDirection);
+
+                isCrouching = false; // Cancel crouch when rolling
+                isSprinting = false; // Cancel sprinting when rolling
+                animatorManager.anim.applyRootMotion = true;
+                animatorManager.PlayTargetAnimation("Roll", true);
+            }
         }
 
         private void OnDrawGizmos()

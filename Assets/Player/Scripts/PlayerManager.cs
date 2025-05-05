@@ -36,7 +36,7 @@ namespace Player
         // Update is called once per frame
         private void Update()
         {
-            playerShield?.HandleShield(ref isBlocking, inputHandler, animatorManager);
+            playerShield?.HandleShield(isJumping, locomotion.isGrounded, isInteracting, inputHandler, animatorManager);
         }
 
         private void FixedUpdate()
