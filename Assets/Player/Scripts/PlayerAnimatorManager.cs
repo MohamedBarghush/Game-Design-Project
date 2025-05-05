@@ -17,12 +17,14 @@ namespace Player
             vertical = Animator.StringToHash("Vertical");
         }
 
+        // Specific function for playing uninterrupted animations using the isInteracting parameter handeled in the PlayerManager
         public void PlayTargetAnimation(string targetAnimation, bool isInteracting)
         {
             anim.SetBool("isInteracting", isInteracting);
             anim.CrossFade(targetAnimation, 0.2f);
         }
 
+        // Handling Movement and Sprinting animations
         public void UpdateAnimatorValues(float horizontalMovement, float verticalMovement, bool isSprinting)
         {
             // Animation Snapping
@@ -56,10 +58,10 @@ namespace Player
             anim.SetFloat(vertical, snappedVertical, 0.1f, Time.deltaTime);
         }
 
-        public void OverlayLayer(int layerIndex, float layerWeight, string animationName, bool animationStatus)
-        {
-            anim.SetLayerWeight(layerIndex, layerWeight);
-            anim.SetBool(animationName, animationStatus);
-        }
+        // public void OverlayLayer(int layerIndex, float layerWeight, string animationName, bool animationStatus)
+        // {
+        //     anim.SetLayerWeight(layerIndex, layerWeight);
+        //     anim.SetBool(animationName, animationStatus);
+        // }
     }
 }

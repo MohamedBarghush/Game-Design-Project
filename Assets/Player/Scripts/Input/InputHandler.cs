@@ -12,6 +12,7 @@ public class InputHandler : MonoBehaviour
     public bool targetInput;
     public bool blockInput;
     public bool rollInput;
+    public bool attackInput;
 
     public void OnMove(InputValue value)
     {
@@ -58,11 +59,8 @@ public class InputHandler : MonoBehaviour
         rollInput = value.isPressed;
     }
 
-    public void Update()
+    public void OnAttack(InputValue value)
     {
-        if (moveInput == Vector2.zero)
-        {
-            sprintInput = false;
-        }
+        attackInput = value.isPressed;
     }
 }

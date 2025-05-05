@@ -41,7 +41,7 @@ namespace Player
 
         private void FixedUpdate()
         {
-            auraManager.HandleAura(isInteracting);
+            auraManager?.HandleAura(isInteracting);
             if (isInteracting) return;
             locomotion.HandleMovement(inputHandler, animatorManager, isTargeting);
         }
