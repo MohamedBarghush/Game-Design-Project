@@ -28,7 +28,7 @@ namespace Player
         [Header("Movement Flags")]
         [SerializeField] private bool isSprinting = false;
         [SerializeField] public bool isGrounded = false;
-        [SerializeField] private bool isCrouching = false;
+        [SerializeField] public bool isCrouching = false;
 
         [Header("Movement Speeds")]
         [SerializeField] private float walkSpeed = 1.5f;
@@ -203,17 +203,20 @@ namespace Player
                 inputHandler.crouchInput = false;
                 if (!isGrounded) return;
                 isCrouching = !isCrouching;
+                animatorManager.anim.applyRootMotion = false;
                 if (isCrouching)
                 {
                     inputHandler.sprintInput = false; // Cancel sprinting when crouching
-                    if (inputHandler.moveInput != Vector2.zero)
-                        animatorManager.PlayTargetAnimation("Crouch State", false);
-                    else
-                        animatorManager.PlayTargetAnimation("Crouch", false);
+                    // if (inputHandler.moveInput != Vector2.zero)
+                    //     animatorManager.PlayTargetAnimation("Crouch State", false);
+                    // else
+                    //     animatorManager.PlayTargetAnimation("Crouch", false);
+                    animatorManager.anim.SetBool("isCrouching", true);
                 }
                 else
                 {
-                    animatorManager.anim.SetTrigger("Crouch");
+                    // animatorManager.anim.SetTrigger("Crouch");
+                    animatorManager.anim.SetBool("isCrouching", false);
                 }
             }
         }
@@ -222,7 +225,8 @@ namespace Player
         public void ResetCrouching(PlayerAnimatorManager animatorManager)
         {
             isCrouching = false;
-            animatorManager.anim.SetTrigger("Crouch");
+            animatorManager.anim.SetBool("isCrouching", false);
+            animatorManager.anim.applyRootMotion = false; // Disable root motion when not crouching
         }
         #endregion
 
@@ -237,6 +241,7 @@ namespace Player
                               cameraObject.right * moveInput.x;
                 targetDirection.Normalize();
                 targetDirection.y = 0f;
+                
                 transform.rotation = Quaternion.LookRotation(targetDirection);
 
                 isCrouching = false; // Cancel crouch when rolling

@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Player
@@ -8,6 +9,8 @@ namespace Player
         int horizontal;
         int vertical;
 
+        RuntimeAnimatorController animatorOriginalController;
+
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Awake()
@@ -15,6 +18,7 @@ namespace Player
             anim = GetComponent<Animator>();
             horizontal = Animator.StringToHash("Horizontal");
             vertical = Animator.StringToHash("Vertical");
+            animatorOriginalController = anim.runtimeAnimatorController;
         }
 
         // Specific function for playing uninterrupted animations using the isInteracting parameter handeled in the PlayerManager
@@ -56,6 +60,10 @@ namespace Player
 
             anim.SetFloat(horizontal, snappedHorizontal, 0.1f, Time.deltaTime);
             anim.SetFloat(vertical, snappedVertical, 0.1f, Time.deltaTime);
+        }
+
+        public void ResetAnimatorOverrideController() {
+            anim.runtimeAnimatorController = animatorOriginalController;
         }
 
         // public void OverlayLayer(int layerIndex, float layerWeight, string animationName, bool animationStatus)

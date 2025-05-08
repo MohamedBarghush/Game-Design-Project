@@ -12,6 +12,8 @@ namespace Player
         [HideInInspector] public PlayerAnimatorManager animatorManager;
         [HideInInspector] public PlayerAuraManager auraManager;
         [HideInInspector] public PlayerShield playerShield;
+        [HideInInspector] public PlayerAttack playerAttack;
+
         // [HideInInspector] public CameraManager cameraManager;
 
         [SerializeField] private bool isInteracting;
@@ -30,6 +32,8 @@ namespace Player
 
             TryGetComponent(out playerShield);
             auraManager?.PlayerAuraStart(animatorManager, inputHandler);
+            TryGetComponent(out playerAttack);
+
             // cameraManager = FindFirstObjectByType<CameraManager>();
         }
 
@@ -37,6 +41,7 @@ namespace Player
         private void Update()
         {
             playerShield?.HandleShield(isJumping, locomotion.isGrounded, isInteracting, inputHandler, animatorManager);
+            playerAttack?.HandleAttacking(locomotion, inputHandler, animatorManager);
         }
 
         private void FixedUpdate()

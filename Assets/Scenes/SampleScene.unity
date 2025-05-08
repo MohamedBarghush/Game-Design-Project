@@ -6845,10 +6845,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
   rb: {fileID: 0}
-  inAirTimer: 0
   leapingVelocity: 0.5
   fallingVelocity: 0.5
   rayCastHeightOffset: 0.05
+  rayCastDistance: 0.2
+  groundedSphereRadius: 0.15
   groundLayer:
     serializedVersion: 2
     m_Bits: 1
@@ -6880,6 +6881,8 @@ MonoBehaviour:
   auraInput: 0
   targetInput: 0
   blockInput: 0
+  rollInput: 0
+  attackInput: 0
 --- !u!114 &1079840537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6977,6 +6980,7 @@ MonoBehaviour:
   animatorManager: {fileID: 0}
   auraManager: {fileID: 0}
   playerShield: {fileID: 0}
+  playerAttack: {fileID: 0}
   isInteracting: 0
   isJumping: 0
   isBlocking: 0
@@ -6994,18 +6998,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
---- !u!114 &1079840543
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1079840532}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4dd8740957c99f49aed96bf4732bcc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1079840544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7033,8 +7025,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d1ee03f5affa384a850c4afe7a2e6de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parryWindow: 0.2
-  isParrying: 0
+--- !u!114 &1079840548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1079840532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f88c11e59b0825d47bc5a5bf0d632622, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  combo:
+  - {fileID: 11400000, guid: fd9e73315ffa4714e9dcc920eac95f95, type: 2}
+  - {fileID: 11400000, guid: d9aacb8f98ccfb44d8ac18b6f3ca86be, type: 2}
+  - {fileID: 11400000, guid: 1d64c912891ed9542b4e9d979d95d0e1, type: 2}
+  attackIdx: 0
+  attackAnimationHash: 0
+  currentTimer: 0
+  canReAttack: 1
 --- !u!1 &1081341041
 GameObject:
   m_ObjectHideFlags: 0
@@ -7677,7 +7687,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 6b4f952849c49d140b11c4161e63b28d, type: 2}
     - target: {fileID: 5866666021909216657, guid: b24c1e21b6b61084c8266f1db0d51e3d, type: 3}
       propertyPath: m_CullingMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: b24c1e21b6b61084c8266f1db0d51e3d, type: 3}
       propertyPath: m_ApplyRootMotion
@@ -7752,13 +7762,13 @@ PrefabInstance:
       addedObject: {fileID: 1079840541}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b24c1e21b6b61084c8266f1db0d51e3d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 1079840543}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b24c1e21b6b61084c8266f1db0d51e3d, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 1079840544}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b24c1e21b6b61084c8266f1db0d51e3d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1079840546}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: b24c1e21b6b61084c8266f1db0d51e3d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1079840548}
   m_SourcePrefab: {fileID: 100100000, guid: b24c1e21b6b61084c8266f1db0d51e3d, type: 3}
 --- !u!1 &1125296845
 GameObject:
@@ -11028,7 +11038,7 @@ Transform:
   m_GameObject: {fileID: 1719783031}
   serializedVersion: 2
   m_LocalRotation: {x: 0.070597, y: 0.40269122, z: -0.031169292, w: 0.91207695}
-  m_LocalPosition: {x: -1.4194555, y: 1.4154841, z: -2.4028728}
+  m_LocalPosition: {x: -1.4631786, y: 1.4154841, z: -2.3549163}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11064,7 +11074,7 @@ MonoBehaviour:
       YOffset: 0
     Strategy: 0
     MaximumEffort: 4
-    SmoothingTime: 0
+    SmoothingTime: 0.1
     Damping: 0.4
     DampingWhenOccluded: 0.2
   ShotQualityEvaluation:
@@ -11141,7 +11151,7 @@ MonoBehaviour:
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
   TargetOffset: {x: 0, y: 1, z: 0}
-  Damping: {x: 0, y: 0, z: 0}
+  Damping: {x: 0.05, y: 0.05, z: 0.05}
   Lookahead:
     Enabled: 0
     Time: 0
