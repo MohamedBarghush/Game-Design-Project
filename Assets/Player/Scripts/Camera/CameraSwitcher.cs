@@ -84,10 +84,10 @@ namespace Player
             
             if (closestCollider == null) return null;
 
-            return closestCollider.transform;
+            return closestCollider.transform.GetComponentInChildren<CameraLookAt>().transform;
         }
 
-        void OnDrawGizmos()
+        void OnDrawGizmosSelected()
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position, targetSphereRadius);

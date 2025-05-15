@@ -11,10 +11,19 @@ namespace Player
         [HideInInspector] public PlayerLocomotion locomotion;
         [HideInInspector] public PlayerAnimatorManager animatorManager;
         [HideInInspector] public PlayerAuraManager auraManager;
-        // [HideInInspector] public CameraManager cameraManager;
+        [HideInInspector] public PlayerShield playerShield;
+        [HideInInspector] public PlayerAttack playerAttack;
+        [HideInInspector] public PlayerHealth playerHealth;
+        [HideInInspector] public PlayerTrolling playerTrolling;
 
         [SerializeField] private bool isInteracting;
         [SerializeField] private bool isJumping;
+        [SerializeField] public bool isBlocking;
+        [SerializeField] public bool isTargeting;
+        [SerializeField] public bool isDead;
+        [SerializeField] public bool isInvulnerable;
+        
+        // [HideInInspector] public CameraManager cameraManager;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Awake()
@@ -23,21 +32,34 @@ namespace Player
             locomotion = GetComponent<PlayerLocomotion>();
             animatorManager = GetComponent<PlayerAnimatorManager>();
             auraManager = GetComponent<PlayerAuraManager>();
+            playerHealth = GetComponent<PlayerHealth>();
+            playerTrolling = GetComponent<PlayerTrolling>();
 
+
+            TryGetComponent(out playerShield);
             auraManager?.PlayerAuraStart(animatorManager, inputHandler);
-            // cameraManager = FindFirstObjectByType<CameraManager>();
+            TryGetComponent(out playerAttack);
+
+            // cameraManager = FindFirstObjectByType<CameraManager>();z
+            playerHealth.HealthAwake(animatorManager);
+            locomotion.LocomotionAwake();
         }
 
         // Update is called once per frame
         private void Update()
         {
+            if (isDead) return;
+            playerHealth.HealthHandler();
+            playerShield?.HandleShield(isJumping, locomotion.isGrounded, isInteracting, inputHandler, animatorManager);
+            playerAttack?.HandleAttacking(locomotion, inputHandler, animatorManager);
+            playerTrolling?.HandleTrolling(inputHandler, animatorManager);
         }
 
         private void FixedUpdate()
         {
-            auraManager.HandleAura(isInteracting);
+            auraManager?.HandleAura(isInteracting);
             if (isInteracting) return;
-            locomotion.HandleMovement(inputHandler, animatorManager);
+            locomotion.HandleMovement(inputHandler, animatorManager, isTargeting);
         }
 
         private void LateUpdate()
@@ -45,8 +67,10 @@ namespace Player
             // cameraManager.HandleCameraMovement(inputHandler);
             isInteracting = animatorManager.anim.GetBool("isInteracting");
             isJumping = animatorManager.anim.GetBool("isJumping");
-            locomotion.HandleJumping(isJumping, inputHandler, animatorManager);
+            // animatorManager.anim.SetBool("Targeting", isTargeting);
+            if (isInteracting) return;
             locomotion.HandleFallingAndLanding(isInteracting, isJumping, animatorManager);
+            locomotion.HandleJumping(isInteracting, isJumping, inputHandler, animatorManager);
         }
     }
 }

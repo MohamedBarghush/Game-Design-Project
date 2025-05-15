@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4aad32fd87d38c74e9e100edc5a6175c, type: 3}
+  m_Name: Laser
+  m_EditorClassIdentifier: 
+  spellName: Laser
+  animationID: 2
+  cooldown: 3
+  staminaCost: 10
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  castEffect: {fileID: 0}
+  laserDuration: 2
+  laserPrefab: {fileID: 3375256761763386850, guid: 23661eeaaf67fca4ca259a6601b7988d, type: 3}
+  damage: 10
+  damaged: 1
