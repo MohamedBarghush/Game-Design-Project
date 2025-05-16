@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3182510493548175453}
   - component: {fileID: 6318173038621067154}
   - component: {fileID: 3802229467328562115}
-  - component: {fileID: 7889829262004248756}
   m_Layer: 0
   m_Name: LOD_0
   m_TagString: Untagged
@@ -88,26 +87,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &7889829262004248756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 981772499143351797}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5074815050d00ce3859d48d8c0394e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1.2.5
-  shaderType: 2
-  editorWindAlways: 0
-  editorWindEnabled: 0
-  windType: 0
-  windQuality: 3
-  localWindAmplitude: 0.61
-  windMain: 1
 --- !u!1 &1242176148977611559
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +209,7 @@ LODGroup:
   serializedVersion: 2
   m_LocalReferencePoint: {x: 0, y: 5.2269897, z: 0}
   m_Size: 15.827786
-  m_FadeMode: 1
+  m_FadeMode: 0
   m_AnimateCrossFading: 1
   m_LastLODIsBillboard: 0
   m_LODs:
@@ -258,7 +237,6 @@ GameObject:
   - component: {fileID: 2053917288834698428}
   - component: {fileID: 7141763893268983275}
   - component: {fileID: 238307967270038636}
-  - component: {fileID: 261369279521303221}
   m_Layer: 0
   m_Name: LOD_1
   m_TagString: Untagged
@@ -335,26 +313,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &261369279521303221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7335006677632143508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5074815050d00ce3859d48d8c0394e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1.2.5
-  shaderType: 2
-  editorWindAlways: 0
-  editorWindEnabled: 0
-  windType: 0
-  windQuality: 3
-  localWindAmplitude: 0.61
-  windMain: 1
 --- !u!21 &21466209151355556
 Material:
   serializedVersion: 8

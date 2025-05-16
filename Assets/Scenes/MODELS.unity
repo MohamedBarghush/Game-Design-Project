@@ -2094,7 +2094,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1096139818649578488, guid: 770bfe7f057b4a74d92f8dda0142965b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.18
       objectReference: {fileID: 0}
     - target: {fileID: 1096139818649578488, guid: 770bfe7f057b4a74d92f8dda0142965b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2102,7 +2102,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1096139818649578488, guid: 770bfe7f057b4a74d92f8dda0142965b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -3.23
       objectReference: {fileID: 0}
     - target: {fileID: 1096139818649578488, guid: 770bfe7f057b4a74d92f8dda0142965b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3671,20 +3671,14 @@ PrefabInstance:
     - target: {fileID: 9547338, guid: f8243bb353e5cb74481bb26fe62fd298, type: 3}
       propertyPath: m_Avatar
       value: 
-      objectReference: {fileID: 9000000, guid: 0b5dafda84353d24281ce891b1ee70b9, type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 9547338, guid: f8243bb353e5cb74481bb26fe62fd298, type: 3}
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: d43d573c845097646b1f48e7cbc4c8a6, type: 2}
     - target: {fileID: 9547338, guid: f8243bb353e5cb74481bb26fe62fd298, type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'WolfRLeg3'\n\tTransform 'WolfRLeg3 1'\n\tTransform
-        'WolfLLeg3 1'\n\tTransform 'WolfHub003'\n\tTransform 'WolfLLeg3'\n\tTransform
-        'WolfLLeg2'\n\tTransform 'WolfRLeg2'\n\tTransform 'WolfRLegAnkle'\n\tTransform
-        'WolfLLegAnkle'\n\tTransform 'WolfLLeg2 1'\n\tand more ...\n\tFrom animation
-        clip 'run'"
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
