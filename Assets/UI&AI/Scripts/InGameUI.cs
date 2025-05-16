@@ -28,7 +28,7 @@ public class InGameUI : MonoBehaviour
 
     private bool isPromptVisible = false;
     private NPCData currentNPC = null;
-    private bool isTalkingToNPC = false;
+    [HideInInspector] public bool isTalkingToNPC = false;
 
     void Awake()
     {
@@ -53,6 +53,8 @@ public class InGameUI : MonoBehaviour
 
     void Update()
     {
+            if (playerObject == null) return;
+
         if (isTalkingToNPC)
         {
             if (Keyboard.current.escapeKey.wasPressedThisFrame)
@@ -62,7 +64,7 @@ public class InGameUI : MonoBehaviour
         }
 
         currentNPC = GetClosestNPC();
-
+        
         if (currentNPC != null)
         {
             if (!isPromptVisible)
@@ -89,6 +91,7 @@ public class InGameUI : MonoBehaviour
 
     private NPCData GetClosestNPC()
     {
+            if (playerObject == null) return null;
         NPCData closestNPC = null;
         float closestDistance = Mathf.Infinity;
         Vector3 playerPos = playerObject.transform.position;
