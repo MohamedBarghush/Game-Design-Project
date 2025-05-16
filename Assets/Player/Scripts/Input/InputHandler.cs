@@ -14,7 +14,7 @@ public class InputHandler : MonoBehaviour
     public bool rollInput;
     public bool attackInput;
     public bool trollInput;
-
+    public bool interactInput;
     public void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
@@ -68,5 +68,9 @@ public class InputHandler : MonoBehaviour
     public void OnTroll(InputValue value)
     {
         trollInput = value.isPressed;
+    }
+    public void OnInteract(InputValue value)
+    {
+        interactInput = value.isPressed;
     }
 }
