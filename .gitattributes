@@ -4,3 +4,5 @@ Assets/Realistic[[:space:]]Volume[[:space:]]Profiles/URP/Sky[[:space:]]Cubes/ fi
 Assets/Realistic[[:space:]]Volume[[:space:]]Profiles/URP/Sky[[:space:]]Cubes/Morning[[:space:]]Sky.exr filter=lfs diff=lfs merge=lfs -text
 Assets/Realistic[[:space:]]Volume[[:space:]]Profiles/URP/Sky[[:space:]]Cubes/Night[[:space:]]Sky.exr filter=lfs diff=lfs merge=lfs -text
 Assets/NPC/Boss/Animations/Ch40_nonPBR.fbx filter=lfs diff=lfs merge=lfs -text
+Assets/StreamingAssets/jets-text-to-speech.sentis filter=lfs diff=lfs merge=lfs -text
+Assets/StreamingAssets/undreamai-v1.2.5-llamacpp/windows-cuda-cu12.2.0/undreamai_windows-cuda-cu12.2.0.dll filter=lfs diff=lfs merge=lfs -text
