@@ -935,7 +935,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -1012,7 +1012,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_LensFlareData: {fileID: 11400000, guid: 707b930075906224b9e3d0ceaa1c8fad, type: 2}
   version: 0
-  intensity: 1
+  intensity: 0.8
   maxAttenuationDistance: 100
   maxAttenuationScale: 100
   distanceAttenuationCurve:
@@ -3219,7 +3219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1096139818649578488, guid: 770bfe7f057b4a74d92f8dda0142965b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 14.927
+      value: 15.195
       objectReference: {fileID: 0}
     - target: {fileID: 1096139818649578488, guid: 770bfe7f057b4a74d92f8dda0142965b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3878,7 +3878,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &948696021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3902,8 +3902,8 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
-  m_Antialiasing: 0
+  m_RenderPostProcessing: 1
+  m_Antialiasing: 2
   m_AntialiasingQuality: 2
   m_StopNaN: 0
   m_Dithering: 0
@@ -3990,8 +3990,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 948696020}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.15387383, y: -0.27186713, z: 0.04098994, w: 0.94906855}
-  m_LocalPosition: {x: 697.5792, y: 53.119995, z: 342.4892}
+  m_LocalRotation: {x: -0.00705929, y: 0.85376936, z: 0.01150681, w: 0.5204764}
+  m_LocalPosition: {x: 419.08795, y: 15.853821, z: 252.74695}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

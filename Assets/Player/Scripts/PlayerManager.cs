@@ -68,7 +68,7 @@ namespace Player
             isInteracting = animatorManager.anim.GetBool("isInteracting");
             isJumping = animatorManager.anim.GetBool("isJumping");
             // animatorManager.anim.SetBool("Targeting", isTargeting);
-            if (isInteracting) return;
+            // if (isInteracting) return;
             locomotion.HandleFallingAndLanding(isInteracting, isJumping, animatorManager);
             locomotion.HandleJumping(isInteracting, isJumping, inputHandler, animatorManager);
         }
