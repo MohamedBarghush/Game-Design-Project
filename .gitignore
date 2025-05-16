@@ -73,3 +73,7 @@ crashlytics-build.properties
 # Temporary auto-generated Android Assets
 /[Aa]ssets/[Ss]treamingAssets/aa.meta
 /[Aa]ssets/[Ss]treamingAssets/aa/*
+
+# Qwen model files
+Assets/StreamingAssets/Qwen3-0.6B-Q4_K_M.gguf
+Assets/StreamingAssets/Qwen3-0.6B-Q4_K_M.gguf.meta
