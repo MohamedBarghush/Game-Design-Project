@@ -175,6 +175,7 @@ namespace Player
                     else
                     {
                         animatorManager.anim.applyRootMotion = false;
+                        animatorManager.anim.SetTrigger("Land");
                     }
                 }
             }
