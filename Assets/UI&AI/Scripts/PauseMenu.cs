@@ -1,15 +1,17 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
     [Header("UI References")]
     public GameObject hudCanvas;
     public GameObject pauseMenuPanel;
-    public Button resumeButton;    // Drag your Resume Button in Inspector
-    public Button mainMenuButton;  // Drag your Main Menu Button in Inspector
+
+    [Header("UI Buttons")]
+    public Button resumeButton;
+    public Button mainMenuButton;
 
     [Header("Dependencies")]
     public InGameUI inGameUI;
@@ -19,72 +21,58 @@ public class PauseMenu : MonoBehaviour
     private bool isPaused = false;
     private bool wasTalkingToNPC = false;
 
+    void Start()
+    {
+        // Setup button click listeners
+        resumeButton.onClick.AddListener(ResumeGame);
+        mainMenuButton.onClick.AddListener(LoadMainMenu);
+    }
+
     void Update()
     {
-        // Handle ESC key for pause/unpause
-        if (Keyboard.current.escapeKey.wasPressedThisFrame && !inGameUI.isTalkingToNPC)
+        bool currentTalkingState = inGameUI.isTalkingToNPC;
+
+        if (Keyboard.current.escapeKey.wasPressedThisFrame)
         {
-            TogglePause();
+            if (!currentTalkingState && !wasTalkingToNPC)
+            {
+                TogglePause();
+            }
         }
 
-        // Direct button checking when paused
-        if (isPaused)
-        {
-            CheckButtonPresses();
-        }
+        wasTalkingToNPC = currentTalkingState;
     }
 
-    void CheckButtonPresses()
-    {
-        // Check Resume Button
-        if (IsButtonPressed(resumeButton))
-        {
-            HandleResume();
-        }
-
-        // Check Main Menu Button
-        if (IsButtonPressed(mainMenuButton))
-        {
-            HandleMainMenu();
-        }
-    }
-
-    bool IsButtonPressed(Button button)
-    {
-        // Check if mouse is over the button and left mouse button is clicked
-        return RectTransformUtility.RectangleContainsScreenPoint(
-            button.GetComponent<RectTransform>(), 
-            Mouse.current.position.ReadValue(), 
-            null
-        ) && Mouse.current.leftButton.wasPressedThisFrame;
-    }
-
-    void TogglePause()
+    public void TogglePause()
     {
         isPaused = !isPaused;
+
         Time.timeScale = isPaused ? 0 : 1;
         hudCanvas.SetActive(!isPaused);
         pauseMenuPanel.SetActive(isPaused);
-        Cursor.visible = isPaused;
-        Cursor.lockState = isPaused ? CursorLockMode.None : CursorLockMode.Locked;
 
-        if (playerInput != null) playerInput.enabled = !isPaused;
-        if (cameraController != null) cameraController.enabled = !isPaused;
+        if (playerInput != null)
+            playerInput.enabled = !isPaused;
+
+        if (cameraController != null)
+            cameraController.enabled = !isPaused;
+
+        Cursor.lockState = isPaused ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = isPaused;
     }
 
-    void HandleResume()
+    // Button Functions
+    public void ResumeGame()
     {
         TogglePause();
     }
 
-public void HandleMainMenu()
-{
-    Time.timeScale = 1f;
-    
-    // Destroy persistent objects that might hold scene references
-    if (hudCanvas != null) Destroy(hudCanvas);
-    if (pauseMenuPanel != null) Destroy(pauseMenuPanel);
-    
-    SceneManager.LoadScene("MainMenu");
-}
+    public void LoadMainMenu()
+    {
+        // Reset time scale and cursor state before loading main menu
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        SceneManager.LoadScene("MainMenu");
+    }
 }
