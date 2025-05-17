@@ -55,6 +55,9 @@ public class EnemyAI : EnemyDefiner
     [SerializeField] private float damageRadius = 1f; // Radius of damage area
     [SerializeField] private LayerMask playerLayer; // Layer mask for player detection
 
+    [Header("Aura Detection")]
+    public float auraDetectionRange = 25f;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -116,11 +119,28 @@ public class EnemyAI : EnemyDefiner
         }
         
 
-        // See if player comes into view
-        if (Vector3.Distance(transform.position, player.position) <= detectionRange 
-            && IsPlayerInFront())
+        // Normal line-of-sight detection
+        bool normalDetection = Vector3.Distance(transform.position, player.position) <= detectionRange 
+                            && IsPlayerInFront();
+
+        // Aura-based detection
+        bool auraDetection = false;
+        if (player.GetComponent<PlayerAuraManager>().auraActive)
         {
-            // Debug.Log("Player detected!");
+            Collider[] hits = Physics.OverlapSphere(transform.position, auraDetectionRange, playerLayer);
+            foreach (Collider col in hits)
+            {
+                if (col.transform == player)
+                {
+                    auraDetection = true;
+                    break;
+                }
+            }
+        }
+
+        if (normalDetection || auraDetection)
+        {
+            DangerNoti.instance.InvokeNoti();
             TransitionTo(State.Follow);
         }
     }
@@ -348,10 +368,11 @@ public class EnemyAI : EnemyDefiner
             animator.SetTrigger(AnimDead);
             agent.isStopped = true;
             enabled = false;
+            GameManager.instance.OnEnemyKilled();
         }
         else
         {
-            // animator.SetTrigger(AnimHit);
+            animator.SetTrigger(AnimHit);
             TransitionTo(State.AwaitAttack);
         }
     }
@@ -381,5 +402,7 @@ public class EnemyAI : EnemyDefiner
         // Detection range - red wire sphere
         Gizmos.color = new Color(1, 0, 0, 1.0f);
         Gizmos.DrawWireSphere(damageCenter.position, damageRadius);
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, auraDetectionRange);
     }
 }

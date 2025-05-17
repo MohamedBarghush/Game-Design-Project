@@ -8,7 +8,7 @@ namespace Player
         private PlayerAnimatorManager animatorManager;
         private InputHandler inputHandler;
 
-        [SerializeField] private bool auraActive = false;
+        public bool auraActive = false;
         [SerializeField] private GameObject auraVFX;
 
         // [SerializeField] private int auraLevel = 0; // 0 = no aura, 1 = basic aura, 2 = advanced aura, etc.
