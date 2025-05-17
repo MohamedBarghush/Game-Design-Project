@@ -420,6 +420,7 @@ private string _lastProcessedText;
 
             audioSource.Play();
 
+            QuestWriter.instance.StartTyping("Follow your wolf");
         }
 
         else

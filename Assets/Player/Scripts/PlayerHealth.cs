@@ -9,6 +9,7 @@ namespace Player
         PlayerManager playerManager;
         [SerializeField] private int maxHealth = 100;
         [SerializeField] private int currentHealth = 0;
+        [SerializeField] private HealthBar healthBar;
 
         private Coroutine regenCoroutine;
         private Coroutine regenDelayCoroutine;
@@ -44,6 +45,7 @@ namespace Player
 
             animatorManager.PlayTargetAnimationTrigger("TakeDamage", true);
             playerManager.isInvulnerable = true;
+            healthBar.SetHealth(currentHealth);
             StartCoroutine(ResetInvulnerabilityAfterDelay(1.0f));
         }
 
@@ -81,6 +83,7 @@ namespace Player
             {
                 currentHealth = maxHealth;
             }
+
         }
 
         public void HealthHandler()

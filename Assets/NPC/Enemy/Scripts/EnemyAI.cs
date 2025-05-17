@@ -11,7 +11,8 @@ public class EnemyAI : EnemyDefiner
         Unaware,
         Follow,
         AwaitAttack,
-        Attack
+        Attack,
+        Die
     }
     public State currentState = State.Unaware;
 
@@ -42,8 +43,8 @@ public class EnemyAI : EnemyDefiner
     private static readonly int AnimAttack   = Animator.StringToHash("Attack");
     private static readonly int AnimOrbit    = Animator.StringToHash("Orbit");
     private static readonly int AnimOrbiting = Animator.StringToHash("Orbiting");
-    private static readonly int AnimDead     = Animator.StringToHash("Dead");
     private static readonly int AnimHit      = Animator.StringToHash("Hit");
+    private static readonly int AnimDie      = Animator.StringToHash("Death");
     private static readonly int AnimBackStab = Animator.StringToHash("BackStab");
 
     [Header("Health")]
@@ -71,14 +72,13 @@ public class EnemyAI : EnemyDefiner
     private void Update()
     {
         // agent.SetDestination(idlePoint.position);
-        if (health <= 0f)
-        {
-            TransitionTo(State.Unaware);
-            animator.SetTrigger(AnimDead);
-            agent.isStopped = true;
-            enabled = false;
-            return;
-        }
+        // if (health <= 0f && currentState != State.Die)
+        // {
+        //     TransitionTo(State.Die);
+        //     // enabled = false;
+        //     return;
+        // }
+        if (agent.enabled == false) return;
 
         switch (currentState)
         {
@@ -88,8 +88,11 @@ public class EnemyAI : EnemyDefiner
             case State.Follow:
                 HandleFollow();
                 break;
-            case State.AwaitAttack:
-                HandleAwaitAttack();
+            // case State.AwaitAttack:
+            //     HandleAwaitAttack();
+            //     break;
+            case State.Die:
+                HandleDead();
                 break;
             case State.Attack:
                 // Attack handled via coroutine/animation event
@@ -143,6 +146,20 @@ public class EnemyAI : EnemyDefiner
             DangerNoti.instance.InvokeNoti();
             TransitionTo(State.Follow);
         }
+    }
+
+    private void HandleDead() {
+        // if (enabled == false) return;
+        // Handle death state
+        if (agent.enabled == false) return;
+        // animator.CrossFade("Dead", 0.0f);
+        GameManager.instance.OnEnemyKilled();
+        agent.isStopped = true;
+        agent.enabled = false;
+        animator.SetBool(AnimAttack, false);
+        // animator.CrossFade("Dead", 0.2f);
+        StopAllCoroutines();
+        // enabled = false;
     }
 
     private void HandleFollow()
@@ -332,17 +349,6 @@ public class EnemyAI : EnemyDefiner
 
     #endregion
 
-    #region Animator Trigger Placeholders
-
-    // Call this from animation events or other scripts if needed:
-    public void TriggerDead() { /* leave empty for now */ }
-
-    public void TriggerAttack() { /* leave empty for now */ }
-
-    public void TriggerHit() { /* leave empty for now */ }
-
-    #endregion
-
     public void DamagePlayer()
     {
         // Debug.Log("Damage player");
@@ -365,28 +371,28 @@ public class EnemyAI : EnemyDefiner
         health -= damage;
         if (health <= 0f)
         {
-            animator.SetTrigger(AnimDead);
-            agent.isStopped = true;
-            enabled = false;
-            GameManager.instance.OnEnemyKilled();
+            animator.CrossFade("Dead", 0.2f);
+            TransitionTo(State.Die);
         }
         else
         {
-            animator.SetTrigger(AnimHit);
+            animator.CrossFade("Hit", 0.2f);
             TransitionTo(State.AwaitAttack);
         }
     }
 
     public override void Get_Assassinated(Transform backStabPos)
     {
+        agent.isStopped = true;
         transform.position = backStabPos.position;
         transform.forward = backStabPos.forward;
         animator.applyRootMotion = true;
-        animator.SetTrigger(AnimBackStab);
-        agent.isStopped = true;
+        // animator.SetTrigger(AnimBackStab);
+        animator.CrossFade("Backstab", 0.2f);
         GetComponent<Collider>().enabled = false;
         health = 0;
-        enabled = false;
+        TransitionTo(State.Die);
+        // enabled = false;
 
         // TODO: Trigger death Event (Counter or something)
     }

@@ -8,7 +8,7 @@ namespace Player {
             if (inputHandler.trollInput)
             {
                 inputHandler.trollInput = false;
-                playerAnimatorManager.anim.applyRootMotion = true;
+                // playerAnimatorManager.anim.applyRootMotion = true;
                 playerAnimatorManager.PlayTargetAnimationTrigger("Troll", true);
             }
         }

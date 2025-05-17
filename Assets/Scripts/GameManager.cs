@@ -27,9 +27,11 @@ public class GameManager : MonoBehaviour
 
     public void OnEnemyKilled()
     {
+        // Debug.Log("Enemy killed somwhere");
         requiredEnemiesToKill--;
         if (requiredEnemiesToKill <= 0)
         {
+            QuestWriter.instance.StartTyping("Find out what happened from the locals");
             Phase2GO.ForEach(go => go.SetActive(true));
         }
     }

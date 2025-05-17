@@ -28,9 +28,7 @@ public class BossController : EnemyDefiner
 
     private Dictionary<SpellBase, float> spellCooldowns = new Dictionary<SpellBase, float>();
     private bool isFloating = true;
-
-    public Text spellCooldownText;
-    
+        
     public List<GameObject> flyingShields = new List<GameObject>();
 
     public bool isCasting = false;
@@ -94,13 +92,6 @@ public class BossController : EnemyDefiner
     private void UpdateCooldowns()
     {
         List<SpellBase> keys = new List<SpellBase>(spellCooldowns.Keys);
-        # if UNITY_EDITOR
-        spellCooldownText.text = "";
-        foreach (var spell in spellCooldowns)
-        {
-            spellCooldownText.text += $"{spell.Key.name}: {spell.Value:0.0}\n";
-        }
-        #endif
         foreach (SpellBase spell in keys)
         {
             if (spellCooldowns[spell] > 0)

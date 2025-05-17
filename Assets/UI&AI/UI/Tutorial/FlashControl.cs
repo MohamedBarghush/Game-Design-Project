@@ -43,9 +43,9 @@ public class FlashControl : MonoBehaviour
         while (flashCount < 2)
         {
             // Fade in
-            yield return StartCoroutine(FadeCanvasGroup(canvasGroup, 1f, 0.5f, flashDuration));
+            yield return StartCoroutine(FadeCanvasGroup(canvasGroup, 1f, 0.2f, flashDuration));
             // Fade out
-            yield return StartCoroutine(FadeCanvasGroup(canvasGroup, 0.5f, 1f, flashDuration));
+            yield return StartCoroutine(FadeCanvasGroup(canvasGroup, 0.2f, 1f, flashDuration));
             flashCount++;
         }
 
