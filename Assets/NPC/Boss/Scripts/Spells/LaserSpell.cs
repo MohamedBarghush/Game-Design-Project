@@ -25,6 +25,7 @@ public class LaserSpell : SpellBase
 
         while (timer < laserDuration)
         {
+            AudioManager.Instance.PlaySound(SoundType.Laser);
             laser.SetPosition(0, castPoint.position);
             laser.SetPosition(1, playerShootPos);
             

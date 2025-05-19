@@ -23,5 +23,5 @@ MonoBehaviour:
   teleportDistance: 5
   grabDistance: 2
   damage: 3
-  grabOffset: 0.5
-  delay: 3
+  grabOffset: 1
+  delay: 1

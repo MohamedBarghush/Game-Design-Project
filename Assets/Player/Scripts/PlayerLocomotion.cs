@@ -145,6 +145,8 @@ namespace Player
             // Define the properties of the raycast that will check if the player is grounded
             RaycastHit hit;
             Vector3 rayCastOrigin = transform.position;
+            Vector3 rayCastOriginForward = transform.position + transform.forward * 0.5f + Vector3.up * rayCastHeightOffset;
+            Vector3 rayCastOriginBackward = transform.position - transform.forward * 0.5f + Vector3.up * rayCastHeightOffset;
             rayCastOrigin.y += rayCastHeightOffset;
 
             // Falling mid-air logic
@@ -179,7 +181,9 @@ namespace Player
                     }
                 }
             }
-            if (Physics.OverlapSphere(rayCastOrigin, groundedSphereRadius, groundLayer).Length > 0)
+            if (Physics.OverlapSphere(rayCastOrigin, groundedSphereRadius, groundLayer).Length > 0 || 
+                Physics.OverlapSphere(rayCastOriginForward, groundedSphereRadius, groundLayer).Length > 0 ||
+                Physics.OverlapSphere(rayCastOriginBackward, groundedSphereRadius, groundLayer).Length > 0)
             {
                 inAirTimer = 0;
                 isGrounded = true;
@@ -268,11 +272,21 @@ namespace Player
             
         }
 
+        public void WalkSound() {
+            AudioManager.Instance.PlaySound(SoundType.Walk, 0.3f);
+        }
+
+        public void RunSound() {
+            AudioManager.Instance.PlaySound(SoundType.Run, 0.3f);
+        }   
+
         // ### Editor Gizmos ###
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.red;
             Gizmos.DrawWireSphere(transform.position + Vector3.up * rayCastHeightOffset, groundedSphereRadius);
+            Gizmos.DrawWireSphere(transform.position + transform.forward * 0.5f + Vector3.up * rayCastHeightOffset, groundedSphereRadius);
+            Gizmos.DrawWireSphere(transform.position - transform.forward * 0.5f + Vector3.up * rayCastHeightOffset, groundedSphereRadius);
         }
     }
 }

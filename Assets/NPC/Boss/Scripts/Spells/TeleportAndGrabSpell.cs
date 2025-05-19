@@ -19,11 +19,11 @@ public class TeleportAndGrabSpell : SpellBase
         // startPosition = BossController.Instance.transform.position;
         
         Vector3 direction = (BossController.Instance.transform.position - playerTarget.position).normalized;
+        BossController.Instance.GetComponent<Collider>().isTrigger = true;
         Vector3 teleportPosition = playerTarget.position + direction * grabOffset;
         Instantiate(castEffect, BossController.Instance.transform.position, Quaternion.identity);
         BossController.Instance.transform.position = teleportPosition;
         BossController.Instance.GetComponent<Animator>().applyRootMotion = true;
-        BossController.Instance.GetComponent<Collider>().isTrigger = true;
 
         BossController.Instance.StartCoroutine(GrabPlayer());
     }

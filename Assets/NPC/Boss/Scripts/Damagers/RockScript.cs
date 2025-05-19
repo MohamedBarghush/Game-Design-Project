@@ -13,6 +13,7 @@ public class RockScript : MonoBehaviour
             {
                 playerHealth.TakeDamage(50);
                 Instantiate(effect, transform.position, Quaternion.identity);
+                AudioManager.Instance.PlaySound(SoundType.Rock);
                 Destroy(gameObject);
             }
         }

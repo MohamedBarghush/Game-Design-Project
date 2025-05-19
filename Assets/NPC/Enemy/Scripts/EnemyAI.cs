@@ -170,13 +170,18 @@ public class EnemyAI : EnemyDefiner
 
         float dist = Vector3.Distance(transform.position, player.position);
 
-        if (dist <= followDistance)
-        {
-            TransitionTo(State.AwaitAttack);
-        }
-        else if (dist > detectionRange * 1.2f) // lose interest if too far
+        // if (dist <= followDistance)
+        // {
+        //     TransitionTo(State.AwaitAttack);
+        // }
+        // else 
+        if (dist > detectionRange * 1.2f) // lose interest if too far
         {
             TransitionTo(State.Unaware);
+        }
+        else if (dist <= attackDistance) {
+            TransitionTo(State.Attack);
+            StartCoroutine(PerformAttack());
         }
     }
 
@@ -264,8 +269,8 @@ public class EnemyAI : EnemyDefiner
     private IEnumerator PerformAttack()
     {
         // Signal attack preparation
-        animator.SetBool(AnimOrbiting, false);
-        animator.SetFloat(AnimOrbit, 0);
+        // animator.SetBool(AnimOrbiting, false);
+        // animator.SetFloat(AnimOrbit, 0);
         
         // First phase: approach and position for attack
         float distToPlayer = Vector3.Distance(transform.position, player.position);
@@ -287,7 +292,7 @@ public class EnemyAI : EnemyDefiner
         // Second phase: telegraph the attack (wind-up)
         agent.isStopped = true;
         animator.SetBool(AnimFollow, false);
-        animator.SetBool(AnimOrbiting, false);
+        // animator.SetBool(AnimOrbiting, false);
         
         // Track player during wind-up phase
         float windUpTime = Random.Range(0.2f, 0.6f); // Variable wind-up timing
@@ -330,7 +335,8 @@ public class EnemyAI : EnemyDefiner
         agent.updatePosition = true;
         agent.isStopped = false;
         
-        TransitionTo(State.AwaitAttack);
+        // TransitionTo(State.AwaitAttack);
+        TransitionTo(State.Follow);
         animator.SetBool(AnimOrbiting, true);
         animator.SetFloat(AnimOrbit, 0);
     }
@@ -369,6 +375,7 @@ public class EnemyAI : EnemyDefiner
     public override void TakeDamage(int damage)
     {
         health -= damage;
+        AudioManager.Instance.PlaySound(SoundType.Hit_Enemy);
         if (health <= 0f)
         {
             animator.CrossFade("Dead", 0.2f);
@@ -377,7 +384,7 @@ public class EnemyAI : EnemyDefiner
         else
         {
             animator.CrossFade("Hit", 0.2f);
-            TransitionTo(State.AwaitAttack);
+            // TransitionTo(State.AwaitAttack);
         }
     }
 
@@ -389,6 +396,7 @@ public class EnemyAI : EnemyDefiner
         animator.applyRootMotion = true;
         // animator.SetTrigger(AnimBackStab);
         animator.CrossFade("Backstab", 0.2f);
+        AudioManager.Instance.PlaySound(SoundType.Hit_Enemy);
         GetComponent<Collider>().enabled = false;
         health = 0;
         TransitionTo(State.Die);

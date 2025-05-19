@@ -2,18 +2,18 @@ using UnityEngine;
 public enum SoundType
 {
     BG,
-    Duck,
-    Barrel,
-    Book,
+    Walk,
+    Run,
+    Hit_Enemy,
+    Hit_Boss,
+    Hit_Player,
+    Rock,
+    Laser,
     Shoot,
-    Hook,
-    Bottel,
-    Chair,
-    Frog,
-    Cat,
-    Bear,
-    TryAgain,
-    AcquireWeapon
+    Danger,
+    Ice,
+    Tutorial,
+    Goku
 }
 [CreateAssetMenu(fileName = "SoundLibrary", menuName = "Scriptable Objects/SoundLibrary")]
 

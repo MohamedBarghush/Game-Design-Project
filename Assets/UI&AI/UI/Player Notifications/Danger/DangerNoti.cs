@@ -12,6 +12,7 @@ public class DangerNoti : MonoBehaviour
     }
 
     public void InvokeNoti() {
+        AudioManager.Instance.PlaySound(SoundType.Danger);
         anim.SetTrigger("Danger");
     }
 }

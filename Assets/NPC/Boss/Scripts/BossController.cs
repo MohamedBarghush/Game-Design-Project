@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
-using UnityEngine.UI;
 
 public class BossController : EnemyDefiner
 {
@@ -140,7 +139,17 @@ public class BossController : EnemyDefiner
     {
         currentHealth -= damage;
         currentStamina -= damage * 2;
-        animator.SetTrigger("Hit");
+        AudioManager.Instance.PlaySound(SoundType.Hit_Boss);
+        if (currentHealth <= 0)
+        {
+            currentHealth = 0;
+            animator.SetTrigger("Die");
+            GameManager.instance.EndGame();
+        }
+        else
+        {
+            animator.SetTrigger("Hit");
+        }
         Mathf.Clamp(currentHealth, 0, maxHealth);
     }
 

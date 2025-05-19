@@ -35,6 +35,7 @@ namespace Player
                 auraActive = !auraActive;
                 if (auraActive == true)
                 {
+                    AudioManager.Instance.PlaySound(SoundType.Goku, 1.0f);
                     animatorManager.PlayTargetAnimation("PowerUp", true);
                     auraVFX.SetActive(true);
                 }

@@ -421,6 +421,7 @@ private string _lastProcessedText;
             audioSource.Play();
 
             QuestWriter.instance.StartTyping("Follow your wolf");
+            WolfManager.instance.OnVillageCleared();
         }
 
         else

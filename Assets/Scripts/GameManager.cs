@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,7 +18,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        QuestWriter.instance.StartTyping("Follow your wolf");
+        AudioManager.Instance.PlayMusic(SoundType.BG);
     }
 
     private void LateUpdate()
@@ -33,11 +34,22 @@ public class GameManager : MonoBehaviour
         {
             QuestWriter.instance.StartTyping("Find out what happened from the locals");
             Phase2GO.ForEach(go => go.SetActive(true));
+            WolfManager.instance.OnVillageCleared();
         }
     }
 
     public void OnPhase3Start()
     {
         Phase3GO.ForEach(go => go.SetActive(true));
+    }
+
+    public void EndGame(){
+        StartCoroutine(EndGameCoroutine());
+    }
+
+    private System.Collections.IEnumerator EndGameCoroutine()
+    {
+        yield return new WaitForSeconds(2f);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
     }
 }

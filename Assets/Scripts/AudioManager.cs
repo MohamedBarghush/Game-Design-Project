@@ -9,23 +9,25 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        // if (Instance == null)
+        // {
+        //     Instance = this;
+        //     DontDestroyOnLoad(gameObject);
+        // }
+        // else
+        // {
+        //     Destroy(gameObject);
+        // }
+        Instance = this;
     }
 
-    public void PlaySound(SoundType soundType)
+    public void PlaySound(SoundType soundType, float volume = 1f)
     {
         AudioClip clip = soundLibrary.GetRandomClip(soundType);
         if (clip != null)
         {
             soundEffectSource.PlayOneShot(clip);
+            soundEffectSource.volume = volume;
         }
         
     }

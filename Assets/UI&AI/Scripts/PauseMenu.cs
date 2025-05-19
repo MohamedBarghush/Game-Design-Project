@@ -28,20 +28,25 @@ public class PauseMenu : MonoBehaviour
         mainMenuButton.onClick.AddListener(LoadMainMenu);
     }
 
-    void Update()
+void Update()
+{
+    // Check if the GameObject is active in the hierarchy
+    if (!gameObject.activeInHierarchy)
+        return;
+
+    bool currentTalkingState = inGameUI.isTalkingToNPC;
+
+    if (Keyboard.current.escapeKey.wasPressedThisFrame)
     {
-        bool currentTalkingState = inGameUI.isTalkingToNPC;
-
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        if (!currentTalkingState && !wasTalkingToNPC)
         {
-            if (!currentTalkingState && !wasTalkingToNPC)
-            {
-                TogglePause();
-            }
+            TogglePause();
         }
-
-        wasTalkingToNPC = currentTalkingState;
     }
+
+    wasTalkingToNPC = currentTalkingState;
+}
+
 
     public void TogglePause()
     {

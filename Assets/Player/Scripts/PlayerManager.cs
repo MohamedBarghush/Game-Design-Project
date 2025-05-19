@@ -53,6 +53,8 @@ namespace Player
             playerShield?.HandleShield(isJumping, locomotion.isGrounded, isInteracting, inputHandler, animatorManager);
             playerAttack?.HandleAttacking(locomotion, inputHandler, animatorManager);
             playerTrolling?.HandleTrolling(inputHandler, animatorManager);
+
+            transform.rotation = Quaternion.Euler(0, transform.rotation.eulerAngles.y, 0);
         }
 
         private void FixedUpdate()

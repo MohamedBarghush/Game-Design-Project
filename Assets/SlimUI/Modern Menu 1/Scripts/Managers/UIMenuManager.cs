@@ -82,6 +82,8 @@ namespace SlimUI.ModernMenu{
 
 		void Start(){
 			CameraObject = transform.GetComponent<Animator>();
+			Cursor.lockState = CursorLockMode.None;
+			Cursor.visible = true;
 
 			playMenu.SetActive(false);
 			exitMenu.SetActive(false);
@@ -220,9 +222,9 @@ namespace SlimUI.ModernMenu{
 			PanelGeneral.SetActive(true);
 			lineGeneral.SetActive(true);
 		}
-public void StartNewGame() {
-    LoadScene("Level 1");
-}
+		public void StartNewGame() {
+			LoadScene("Level 1");
+		}
 		public void PlayHover(){
 			hoverSound.Play();
 		}
@@ -275,7 +277,7 @@ public void StartNewGame() {
 				loadingBar.value = progress;
 
 				if (operation.progress >= 0.9f && waitForInput){
-					loadPromptText.text = "Press " + userPromptKey.ToString().ToUpper() + " to continue";
+					loadPromptText.text = "Press Enter to continue";
 					loadingBar.value = 1;
 
 					if (Input.GetKeyDown(userPromptKey)){

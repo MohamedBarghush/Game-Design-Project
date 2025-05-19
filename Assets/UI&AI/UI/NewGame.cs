@@ -4,16 +4,16 @@ using UnityEngine.UI;
 
 public class NewGame : MonoBehaviour
 {
-    public Button newGameButton; // Assign your button in the Inspector
     public string sceneName = "Level 1"; // Name of your scene
 
-    void Start()
+    public void StartNewGame()
     {
-        newGameButton.onClick.AddListener(StartNewGame);
+        PlayerPrefs.DeleteAll(); // Clear all PlayerPrefs
+        PlayerPrefs.Save();
     }
 
-    void StartNewGame()
+    public void ContinueGame()
     {
-        SceneManager.LoadScene(sceneName); // Direct scene load
+        // Implement your continue game logic here
     }
 }

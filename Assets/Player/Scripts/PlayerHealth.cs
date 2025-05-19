@@ -11,9 +11,9 @@ namespace Player
         [SerializeField] private int currentHealth = 0;
         [SerializeField] private HealthBar healthBar;
 
-        private Coroutine regenCoroutine;
-        private Coroutine regenDelayCoroutine;
-        private bool isRegenerating = false;
+        // private Coroutine regenCoroutine;
+        // private Coroutine regenDelayCoroutine;
+        // private bool isRegenerating = false;
 
         public void HealthAwake(PlayerAnimatorManager animatorManager)
         {
@@ -28,18 +28,19 @@ namespace Player
             currentHealth -= damage;
             animatorManager.anim.applyRootMotion = true;
 
-            if (regenCoroutine != null)
-                StopCoroutine(regenCoroutine);
-            if (regenDelayCoroutine != null)
-                StopCoroutine(regenDelayCoroutine);
+            // if (regenCoroutine != null)
+            //     StopCoroutine(regenCoroutine);
+            // if (regenDelayCoroutine != null)
+            //     StopCoroutine(regenDelayCoroutine);
 
-            isRegenerating = false;
-            regenDelayCoroutine = StartCoroutine(StartRegenAfterDelay(10f));
+            // isRegenerating = false;
+            // regenDelayCoroutine = StartCoroutine(StartRegenAfterDelay(10f));
 
             if (currentHealth <= 0)
             {
                 animatorManager.PlayTargetAnimationTrigger("Death", true);
                 playerManager.isDead = true;
+                GameManager.instance.EndGame();
                 return;
             }
 
@@ -55,18 +56,19 @@ namespace Player
             currentHealth -= damage;
             animatorManager.anim.applyRootMotion = true;
 
-            if (regenCoroutine != null)
-                StopCoroutine(regenCoroutine);
-            if (regenDelayCoroutine != null)
-                StopCoroutine(regenDelayCoroutine);
+            // if (regenCoroutine != null)
+            //     StopCoroutine(regenCoroutine);
+            // if (regenDelayCoroutine != null)
+            //     StopCoroutine(regenDelayCoroutine);
 
-            isRegenerating = false;
-            regenDelayCoroutine = StartCoroutine(StartRegenAfterDelay(10f));
+            // isRegenerating = false;
+            // regenDelayCoroutine = StartCoroutine(StartRegenAfterDelay(10f));
 
             if (currentHealth <= 0)
             {
                 animatorManager.PlayTargetAnimationTrigger("Death", true);
                 playerManager.isDead = true;
+                GameManager.instance.EndGame();
                 return;
             }
 
@@ -75,16 +77,16 @@ namespace Player
             StartCoroutine(ResetInvulnerabilityAfterDelay(1.0f));
         }
 
-        public void Heal(int amount)
-        {
-            if (playerManager.isDead) return;
-            currentHealth += amount;
-            if (currentHealth > maxHealth)
-            {
-                currentHealth = maxHealth;
-            }
+        // public void Heal(int amount)
+        // {
+        //     if (playerManager.isDead) return;
+        //     currentHealth += amount;
+        //     if (currentHealth > maxHealth)
+        //     {
+        //         currentHealth = maxHealth;
+        //     }
 
-        }
+        // }
 
         public void HealthHandler()
         {
@@ -97,24 +99,24 @@ namespace Player
             playerManager.isInvulnerable = false;
         }
 
-        private IEnumerator StartRegenAfterDelay(float delay)
-        {
-            yield return new WaitForSeconds(delay);
-            regenCoroutine = StartCoroutine(RegenerateHealthOverTime());
-        }
+        // private IEnumerator StartRegenAfterDelay(float delay)
+        // {
+        //     yield return new WaitForSeconds(delay);
+        //     regenCoroutine = StartCoroutine(RegenerateHealthOverTime());
+        // }
 
-        private IEnumerator RegenerateHealthOverTime()
-        {
-            isRegenerating = true;
-            while (currentHealth < maxHealth)
-            {
-                currentHealth += 1; // Heal 1 point per tick
-                if (currentHealth > maxHealth)
-                    currentHealth = maxHealth;
+        // private IEnumerator RegenerateHealthOverTime()
+        // {
+        //     isRegenerating = true;
+        //     while (currentHealth < maxHealth)
+        //     {
+        //         currentHealth += 1; // Heal 1 point per tick
+        //         if (currentHealth > maxHealth)
+        //             currentHealth = maxHealth;
 
-                yield return new WaitForSeconds(0.1f); // Slow regeneration rate
-            }
-            isRegenerating = false;
-        }
+        //         yield return new WaitForSeconds(0.1f); // Slow regeneration rate
+        //     }
+        //     isRegenerating = false;
+        // }
     }
 }

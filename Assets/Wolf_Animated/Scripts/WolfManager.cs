@@ -5,6 +5,13 @@ using System.Collections.Generic;
 [RequireComponent(typeof(NavMeshAgent))]
 public class WolfManager : MonoBehaviour
 {
+    public static WolfManager instance;
+
+    void Awake()
+    {
+        instance = this;
+    }
+
     [System.Serializable]
     public class StopPoint
     {
