@@ -53,7 +53,7 @@ public class InGameUI : MonoBehaviour
 
     void Update()
     {
-            if (playerObject == null) return;
+        if (playerObject == null) return;
 
         if (isTalkingToNPC)
         {
@@ -65,7 +65,7 @@ public class InGameUI : MonoBehaviour
 
         currentNPC = GetClosestNPC();
         
-        if (currentNPC != null)
+        if (currentNPC != null && currentNPC.npcTransform.gameObject.activeInHierarchy)
         {
             if (!isPromptVisible)
             {
@@ -91,7 +91,7 @@ public class InGameUI : MonoBehaviour
 
     private NPCData GetClosestNPC()
     {
-            if (playerObject == null) return null;
+        if (playerObject == null) return null;
         NPCData closestNPC = null;
         float closestDistance = Mathf.Infinity;
         Vector3 playerPos = playerObject.transform.position;

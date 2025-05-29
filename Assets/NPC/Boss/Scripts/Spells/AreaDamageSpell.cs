@@ -15,6 +15,8 @@ public class AreaDamageSpell : SpellBase
     public override void Cast()
     {
         if (playerTarget == null) return;
+
+        AudioManager.Instance?.PlaySoundAtSrc(SoundType.Bahnas_Ice, source: audioSource, 1.0f);
         
         // Start the casting sequence with repeating damage
         BossController.Instance.StartCoroutine(CastSequence());

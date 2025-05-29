@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Player;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -18,6 +19,16 @@ public class PauseMenu : MonoBehaviour
     public PlayerInput playerInput;
     public MonoBehaviour cameraController;
 
+    [Header("Sensitivity Settings")]
+    public Slider sensitivitySlider;
+    public float defaultSensitivity = 1.0f;
+    public float minSensitivity = 0.1f;
+    public float maxSensitivity = 10.0f;
+    public float currentSensitivity;
+    public CameraHandler cameraHandler;
+    public Toggle invertYToggle;
+
+
     private bool isPaused = false;
     private bool wasTalkingToNPC = false;
 
@@ -26,6 +37,35 @@ public class PauseMenu : MonoBehaviour
         // Setup button click listeners
         resumeButton.onClick.AddListener(ResumeGame);
         mainMenuButton.onClick.AddListener(LoadMainMenu);
+
+        currentSensitivity = defaultSensitivity;
+        if (sensitivitySlider != null)
+        {
+            sensitivitySlider.minValue = minSensitivity;
+            sensitivitySlider.maxValue = maxSensitivity;
+            sensitivitySlider.value = currentSensitivity;
+        }
+        sensitivitySlider.onValueChanged.AddListener(SetSensitivity);
+        invertYToggle.isOn = cameraHandler.invertY;
+        invertYToggle.onValueChanged.AddListener(SetInvertY);
+    }
+
+    void SetSensitivity(float value)
+    {
+        currentSensitivity = value;
+        if (cameraHandler != null)
+        {
+            cameraHandler.sensitivityX = value;
+            cameraHandler.sensitivityY = value;
+        }
+    }
+
+    void SetInvertY(bool isOn)
+    {
+        if (cameraHandler != null)
+        {
+            cameraHandler.invertY = isOn;
+        }
     }
 
 void Update()
@@ -70,6 +110,8 @@ void Update()
     public void ResumeGame()
     {
         TogglePause();
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void LoadMainMenu()

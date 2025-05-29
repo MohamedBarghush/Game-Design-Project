@@ -7,6 +7,12 @@
       "dependencies": {},
       "hash": "41d392d35504f3184075b9705257ce79f6e92e12"
     },
+    "com.dreadscripts.animationhierarchyeditor": {
+      "version": "file:com.dreadscripts.animationhierarchyeditor",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,

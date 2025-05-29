@@ -33,6 +33,8 @@ public class BossController : EnemyDefiner
     public bool isCasting = false;
     private Coroutine currentSpellRoutine;
 
+    private AudioSource audioSource;
+
     // public bool IsCasting => isCasting;
 
     private void Awake()
@@ -45,9 +47,11 @@ public class BossController : EnemyDefiner
         animator.SetBool("Floating", true);
         floatingPosition = transform.position;
 
+        audioSource = GetComponent<AudioSource>();
+
         foreach (SpellBase spell in spells)
         {
-            spell.Initialize(castPoint, player, transform.position);
+            spell.Initialize(castPoint, player, transform.position, audioSource);
             spellCooldowns.Add(spell, 0);
         }
 
@@ -108,7 +112,7 @@ public class BossController : EnemyDefiner
         {
             ChangeState(BossState.Attacking);
         }
-        else if (currentStamina <= 0 && currentState != BossState.Stunned)
+        else if (currentStamina <= 0 && currentState == BossState.Idle && currentState != BossState.Stunned && !isCasting)
         {
             ChangeState(BossState.Stunned);
         }
@@ -137,14 +141,16 @@ public class BossController : EnemyDefiner
 
     public override void TakeDamage(int damage)
     {
+        if (!isVulnerable || currentHealth <= 0) return;
         currentHealth -= damage;
         currentStamina -= damage * 2;
-        AudioManager.Instance.PlaySound(SoundType.Hit_Boss);
+        AudioManager.Instance?.PlaySound(SoundType.Hit_Boss);
         if (currentHealth <= 0)
         {
             currentHealth = 0;
+            StopAllCoroutines();
             animator.SetTrigger("Die");
-            GameManager.instance.EndGame();
+            GameManager.instance.EndGame("Thanks for Playing!!!");
         }
         else
         {
@@ -252,6 +258,7 @@ public class BossController : EnemyDefiner
         isFloating = false;
         rb.isKinematic = false;
         animator.SetBool("Floating", false);
+        FinishSpell();
     }
 
     public void RecoverFromStun()

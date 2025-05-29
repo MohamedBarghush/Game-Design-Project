@@ -16,6 +16,8 @@ namespace Player
 
         [HideInInspector] public bool canStartAura = true; // Flag to control aura activation
 
+        
+
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         public void PlayerAuraStart(PlayerAnimatorManager animatorManager, InputHandler inputHandler)
@@ -25,7 +27,7 @@ namespace Player
             auraVFX.SetActive(false); // Ensure the aura VFX is initially inactive
         }
 
-        public void HandleAura(bool isInteracting)
+        public void HandleAura(bool isInteracting, AudioSource auraAS)
         {
             if (inputHandler.auraInput)
             {
@@ -35,7 +37,7 @@ namespace Player
                 auraActive = !auraActive;
                 if (auraActive == true)
                 {
-                    AudioManager.Instance.PlaySound(SoundType.Goku, 1.0f);
+                    AudioManager.Instance.PlaySoundAtSrc(SoundType.Goku, auraAS, 1.0f);
                     animatorManager.PlayTargetAnimation("PowerUp", true);
                     auraVFX.SetActive(true);
                 }

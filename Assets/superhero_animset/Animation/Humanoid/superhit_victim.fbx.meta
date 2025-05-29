@@ -433,7 +433,7 @@ ModelImporter:
       name: superhit_victim
       takeName: superhit_victim
       internalID: 0
-      firstFrame: 3
+      firstFrame: 0
       lastFrame: 82
       wrapMode: 0
       orientationOffsetY: 0
@@ -447,9 +447,9 @@ ModelImporter:
       loopBlendPositionY: 1
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 1
-      keepOriginalPositionY: 1
+      keepOriginalPositionY: 0
       keepOriginalPositionXZ: 1
-      heightFromFeet: 0
+      heightFromFeet: 1
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []

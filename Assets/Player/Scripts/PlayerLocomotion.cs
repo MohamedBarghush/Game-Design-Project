@@ -40,6 +40,8 @@ namespace Player
         [Tooltip("The jump force applied to the player when jumping.")]
         [SerializeField] private float jumpVelocity = 5f;
 
+        [SerializeField] private AudioSource stepsAS;
+
         public void LocomotionAwake()
         {
             anim = GetComponent<Animator>();
@@ -273,11 +275,11 @@ namespace Player
         }
 
         public void WalkSound() {
-            AudioManager.Instance.PlaySound(SoundType.Walk, 0.3f);
+            AudioManager.Instance?.PlaySoundAtSrc(SoundType.Walk, stepsAS, 0.2f);
         }
 
         public void RunSound() {
-            AudioManager.Instance.PlaySound(SoundType.Run, 0.3f);
+            AudioManager.Instance?.PlaySoundAtSrc(SoundType.Run, stepsAS, 0.2f);
         }   
 
         // ### Editor Gizmos ###

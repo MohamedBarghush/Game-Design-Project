@@ -46,15 +46,16 @@ namespace Player
                             if (enemy.CanBeAssassinated) {
                                 // Debug.Log("Enemy cannot be assassinated
                                 // Debug.Log("An Enemy");
-                                Vector3 direction = enemyInVicinity[0].transform.transform.position - attackPoint.position;
+                                Vector3 direction = enemyInVicinity[0].transform.position - attackPoint.position;
                                 direction.Normalize();
                                 float dot = Vector3.Dot(direction, enemyInVicinity[0].transform.transform.forward);
                                 // Debug.Log("Dot: " + dot);
                                 if (dot > 0f) {
-                                    transform.position = Vector3.Lerp(transform.position, enemyInVicinity[0].transform.position - enemyInVicinity[0].transform.forward * 0.5f, Time.deltaTime * 5f);
+                                    // transform.position = Vector3.Lerp(transform.position, enemyInVicinity[0].transform.position - enemyInVicinity[0].transform.forward * 0.5f, Time.deltaTime * 5f);
+                                    enemy.Get_Assassinated(enemyBackStabPos);
+                                    // transform.position = enemyInVicinity[0].transform.position - enemyInVicinity[0].transform.forward * 0.5f;
                                     playerAnimatorManager.anim.applyRootMotion = true;
                                     playerAnimatorManager.PlayTargetAnimationTrigger("Assassinate", true);
-                                    enemy.Get_Assassinated(enemyBackStabPos);
                                     return;
                                 }
                             }

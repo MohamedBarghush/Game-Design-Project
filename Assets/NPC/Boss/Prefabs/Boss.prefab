@@ -140,6 +140,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 9100000, guid: 61af146b70c36874dbd39f74a3e8cf37, type: 2}
     - target: {fileID: 5866666021909216657, guid: 9cd196aac7ffcf74c8f136c53a6d2339, type: 3}
+      propertyPath: m_CullingMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 9cd196aac7ffcf74c8f136c53a6d2339, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
       objectReference: {fileID: 0}
@@ -205,7 +209,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 822b707305e9cf74ea79e99bf7edaa1c, type: 2}
   - {fileID: 11400000, guid: 0ca37a7dddf64b047ab258ca985dab81, type: 2}
   - {fileID: 11400000, guid: bc8c6244b3f41ef4c879ec19acd76a8c, type: 2}
-  spellCooldownText: {fileID: 0}
   flyingShields:
   - {fileID: 5371665052257515041, guid: b96f858c2d6ab96468a09273151caabd, type: 3}
   - {fileID: 2989662054668132959, guid: be2aeb020a95981458dbbaab6a465b16, type: 3}

@@ -31,6 +31,17 @@ public class AudioManager : MonoBehaviour
         }
         
     }
+
+    public void PlaySoundAtSrc(SoundType soundType, AudioSource source, float volume = 1f)
+    {
+        AudioClip clip = soundLibrary.GetRandomClip(soundType);
+        if (clip != null)
+        {
+            source.PlayOneShot(clip);
+            source.volume = volume;
+        }
+        
+    }
    
 
     public void PlayMusic(SoundType soundType)

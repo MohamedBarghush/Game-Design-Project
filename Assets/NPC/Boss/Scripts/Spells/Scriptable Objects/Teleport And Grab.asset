@@ -16,12 +16,13 @@ MonoBehaviour:
   animationID: 5
   cooldown: 6
   staminaCost: 10
+  castTime: 2
   playerLayer:
     serializedVersion: 2
     m_Bits: 8
   castEffect: {fileID: 2944396702758532163, guid: e190bf97c041e58448af6b043116cba0, type: 3}
-  teleportDistance: 5
+  teleportDistance: 1.5
   grabDistance: 2
-  damage: 3
-  grabOffset: 1
+  damage: 20
+  grabOffset: 1.5
   delay: 1

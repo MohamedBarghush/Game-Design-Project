@@ -13,8 +13,11 @@ public class LaserSpell : SpellBase
 
     public override void Cast()
     {
+        AudioManager.Instance?.PlaySoundAtSrc(SoundType.Bahnas_Laser, source: audioSource, 1.0f);
         playerShootPos = playerTarget.position;
         damaged = false;
+        if (castEffect != null)
+            Instantiate(castEffect, castPoint.position, Quaternion.identity);
         BossController.Instance.StartCoroutine(LaserRoutine());
     }
 
@@ -25,7 +28,7 @@ public class LaserSpell : SpellBase
 
         while (timer < laserDuration)
         {
-            AudioManager.Instance.PlaySound(SoundType.Laser);
+            AudioManager.Instance?.PlaySound(SoundType.Laser, 0.5f);
             laser.SetPosition(0, castPoint.position);
             laser.SetPosition(1, playerShootPos);
             

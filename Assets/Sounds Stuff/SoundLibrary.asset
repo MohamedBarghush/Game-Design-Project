@@ -59,3 +59,15 @@ MonoBehaviour:
   - soundType: 12
     clips:
     - {fileID: 8300000, guid: 0a97898802f260144932d6482ab477e8, type: 3}
+  - soundType: 13
+    clips:
+    - {fileID: 8300000, guid: 508e23a7ee8f978418cfa207203d83fd, type: 3}
+  - soundType: 14
+    clips:
+    - {fileID: 8300000, guid: 0d21611f43633f640af25bbd73edd894, type: 3}
+  - soundType: 15
+    clips:
+    - {fileID: 8300000, guid: 35cac02b0aada404cb0d08ef95c7ab21, type: 3}
+  - soundType: 16
+    clips:
+    - {fileID: 8300000, guid: d1e08202355f5b8499fb66f9ab13a17f, type: 3}

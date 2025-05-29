@@ -379,6 +379,9 @@ public class EnemyAI : EnemyDefiner
         if (health <= 0f)
         {
             animator.CrossFade("Dead", 0.2f);
+            agent.isStopped = true;
+            GetComponent<Collider>().enabled = false;
+            animator.applyRootMotion = true;
             TransitionTo(State.Die);
         }
         else
@@ -391,13 +394,13 @@ public class EnemyAI : EnemyDefiner
     public override void Get_Assassinated(Transform backStabPos)
     {
         agent.isStopped = true;
+        GetComponent<Collider>().enabled = false;
         transform.position = backStabPos.position;
         transform.forward = backStabPos.forward;
         animator.applyRootMotion = true;
         // animator.SetTrigger(AnimBackStab);
         animator.CrossFade("Backstab", 0.2f);
         AudioManager.Instance.PlaySound(SoundType.Hit_Enemy);
-        GetComponent<Collider>().enabled = false;
         health = 0;
         TransitionTo(State.Die);
         // enabled = false;

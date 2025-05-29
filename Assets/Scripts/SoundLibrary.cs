@@ -13,7 +13,11 @@ public enum SoundType
     Danger,
     Ice,
     Tutorial,
-    Goku
+    Goku,
+    Bahnas_Ice,
+    Bahnas_Laser,
+    Bahnas_Rock,
+    Bahnas_Grab
 }
 [CreateAssetMenu(fileName = "SoundLibrary", menuName = "Scriptable Objects/SoundLibrary")]
 

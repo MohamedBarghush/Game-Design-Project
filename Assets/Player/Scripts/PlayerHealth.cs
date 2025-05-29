@@ -46,7 +46,7 @@ namespace Player
 
             animatorManager.PlayTargetAnimationTrigger("TakeDamage", true);
             playerManager.isInvulnerable = true;
-            healthBar.SetHealth(currentHealth);
+            healthBar?.SetHealth(currentHealth);
             StartCoroutine(ResetInvulnerabilityAfterDelay(1.0f));
         }
 
@@ -54,7 +54,12 @@ namespace Player
         {
             if (playerManager.isInvulnerable || playerManager.isDead) return;
             currentHealth -= damage;
+            GetComponent<Rigidbody>().useGravity = false;
+            GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+            GetComponent<Collider>().isTrigger = true;
             animatorManager.anim.applyRootMotion = true;
+
+            // transform.position = grabberTransform.position + new Vector3(0, 1.5f, 0); // Adjust position to be in front of the grabber
 
             // if (regenCoroutine != null)
             //     StopCoroutine(regenCoroutine);
@@ -71,10 +76,10 @@ namespace Player
                 GameManager.instance.EndGame();
                 return;
             }
-
             animatorManager.PlayTargetAnimation("Grabbed", true, 0.0f);
             playerManager.isInvulnerable = true;
-            StartCoroutine(ResetInvulnerabilityAfterDelay(1.0f));
+            StartCoroutine(ResetViable(3.0f));
+            StartCoroutine(ResetInvulnerabilityAfterDelay(3.0f));
         }
 
         // public void Heal(int amount)
@@ -97,6 +102,14 @@ namespace Player
         {
             yield return new WaitForSeconds(delay);
             playerManager.isInvulnerable = false;
+        }
+
+        private IEnumerator ResetViable(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            GetComponent<Rigidbody>().isKinematic = false;
+            GetComponent<Rigidbody>().useGravity = true;
+            GetComponent<Collider>().isTrigger = false;
         }
 
         // private IEnumerator StartRegenAfterDelay(float delay)

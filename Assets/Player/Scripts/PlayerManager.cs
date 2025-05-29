@@ -22,6 +22,9 @@ namespace Player
         [SerializeField] public bool isTargeting;
         [SerializeField] public bool isDead;
         [SerializeField] public bool isInvulnerable;
+
+        [SerializeField] private AudioSource effectsAS;
+        [SerializeField] private AudioSource stepsAS;
         
         // [HideInInspector] public CameraManager cameraManager;
 
@@ -59,7 +62,7 @@ namespace Player
 
         private void FixedUpdate()
         {
-            auraManager?.HandleAura(isInteracting);
+            auraManager?.HandleAura(isInteracting, effectsAS);
             if (isInteracting) return;
             locomotion.HandleMovement(inputHandler, animatorManager, isTargeting);
         }

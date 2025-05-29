@@ -12,12 +12,12 @@ namespace Player
         float rotAngleX = 0;
         float rotAngleY = 0;
 
-        [SerializeField] private bool invertY = false;
+        [SerializeField] public bool invertY = false;
         [SerializeField] private float minRotY = -35f;
         [SerializeField] private float maxRotY = 35f;
         // [SerializeField] private float cameraSmoothness = 0.2f;
-        [SerializeField] private float sensitivityX = 2f;
-        [SerializeField] private float sensitivityY = 1f;
+        [SerializeField] public float sensitivityX = 2f;
+        [SerializeField] public float sensitivityY = 1f;
 
         // Start is called once before the first execution of Update after the MonoBehaviour is created
         void Awake()
