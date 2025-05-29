@@ -4,30 +4,30 @@
 
 ---
 
-**Obelion** is a souls-like open-world action RPG that challenges players to forge their own path in a richly detailed fantasy realm full of danger, mystery, and consequence.
+**Obelion: Rise to be The Game Master** is a souls-like open-world action RPG that begins your journey in the shattered realm of Obelion — a fantasy world on the brink of chaos.
 
-## Features
+While the grand vision includes multiple factions, evolving AI, and dynamic class-based gameplay, this early build focuses on introducing players to the world through a dramatic opening scenario filled with tension, action, and mystery.
 
-- **Four distinct classes:** Fighter, Assassin, Mage, Tank  
-- **Three powerful factions:**  
-  - Astra Nova (noble protectors)  
-  - Abyssal Shadow Realm (masters of deception)  
-  - Umbra Nexos (morally ambiguous)  
-- **Adaptive AI system:** NPCs remember your actions and change behavior accordingly  
-- **Spirit companion:** Assigned through a personality-based ritual, providing guidance and powers  
-- **Expansive world:** Explore vast regions with evolving quests and secrets  
-- **Five dynamic regional bosses:** Boss mechanics and difficulty evolve based on your playstyle  
-- **Solo and co-op:** Play alone or with up to 5 players in cooperative mode  
-- **Branching narrative:** Meaningful choices affecting the story and world  
-- **Final confrontation:** Face the Game Master, an AI-driven force adapting to your decisions  
-- **Additional features:** PvP training modes, gear customization, faction politics, multiple endings  
+## Early Gameplay Experience
 
-## Gameplay Overview
+- Start your adventure accompanied by **Justice**, an intelligent spirit companion powered by a large language model (LLM).  
+- Justice guides you through movement, combat, and game mechanics in an immersive tutorial and dynamically interacts with you, setting the emotional and narrative tone.  
+- Follow Justice to a village under siege, engaging in real-time action combat against invading monsters.  
+- Meet **Sakura**, an NPC also powered by an LLM and enhanced with text-to-speech (TTS), who interacts dynamically and sets your next objective: confronting the powerful regional boss, **Loki**.
 
-Choose your class and faction, then immerse yourself in a world where no two encounters are alike. Use stealth, magic, or brute strength to overcome challenges. Your choices influence the world and how NPCs interact with you, creating a personalized RPG experience.
+## Core Pillars
 
-## Getting Started
+- Intelligent companions driven by AI and LLM technology  
+- Cinematic storytelling with dynamic, immersive dialogue  
+- Real-time action combat gameplay  
 
-To play the game, visit the Itch.io page:
+## Roadmap & Vision
 
-👉 [Play Obelion on Itch.io](https://mohamedelshab.itch.io/obleion)
+The full faction system, adaptive AI, and class-based progression are part of the broader roadmap. This early build offers a glimpse into Obelion’s core pillars as you prepare to face the enigmatic Game Master.
+
+---
+
+Will you bring balance, embrace chaos, or walk the gray path?  
+**Your legend begins now.**
+
+[Play Obelion on Itch.io](https://mohamedelshab.itch.io/obleion)
